@@ -33,8 +33,8 @@ const Products = () => {
       try {
         console.log('Fetching products and categories...');
         const [productsResponse, categoriesResponse] = await Promise.all([
-          axios.get(`${VITE_API_URL}/products/paginate?page=${currentPage}&limit=${itemsPerPage}`),
-          axios.get(`${VITE_API_URL}/categories`),
+          axios.get(`${VITE_API_URL}/api/products/paginate?page=${currentPage}&limit=${itemsPerPage}`),
+          axios.get(`${VITE_API_URL}/api/categories`),
         ]);
 
         const productsData = productsResponse.data.products || productsResponse.data || [];
