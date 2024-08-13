@@ -16,10 +16,9 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import ProductCard from "../../components/ProductCard";
 
-const PRODUCTS_API_URL = import.meta.env.VITE_PRODUCTS_API_URL;
-const CATEGORY_API_URL = import.meta.env.VITE_CATEGORY_API_URL;
+
+const API_URL= import.meta.env.VITE_API_URL;
 
 const AdminProducts = () => {
   const navigate = useNavigate();
@@ -55,8 +54,8 @@ const AdminProducts = () => {
     const fetchInitialData = async () => {
       try {
         const [productsResponse, categoriesResponse] = await Promise.all([
-          axios.get(PRODUCTS_API_URL, { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get(CATEGORY_API_URL, {
+          axios.get(`${API_URL}/api/products`, { headers: { Authorization: `Bearer ${token}` } }),
+          axios.get(`${API_URL}/api/categories`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

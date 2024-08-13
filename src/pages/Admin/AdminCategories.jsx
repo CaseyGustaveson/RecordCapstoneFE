@@ -11,7 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const CATEGORY_API_URL = import.meta.env.VITE_CATEGORY_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminCategories = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const AdminCategories = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(CATEGORY_API_URL, {
+      const response = await axios.get(`${API_URL}/api/categories`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (Array.isArray(response.data)) {
@@ -55,7 +55,7 @@ const AdminCategories = () => {
   const addCategory = async () => {
     try {
       const response = await axios.post(
-        CATEGORY_API_URL,
+        `${API_URL}/api/categories`,
         { ...newCategory, name: newCategory.name.toUpperCase() },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -68,7 +68,7 @@ const AdminCategories = () => {
   };
   const deleteCategory = async (id) => {
     try {
-      await axios.delete(`${CATEGORY_API_URL}/${id}`, {
+      await axios.delete(`${API_URL}/categories/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCategories(categories.filter((category) => category.id !== id));
