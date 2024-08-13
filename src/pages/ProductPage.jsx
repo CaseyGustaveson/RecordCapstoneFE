@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 
-const VITE_API_URL = import.meta.env.VITE_API_URL;
+const API_URL= import.meta.env.VITE_API_URL;
 const PRODUCTS_API_URL = import.meta.env.VITE_PRODUCTS_API_URL;
 const CATEGORY_API_URL = import.meta.env.VITE_CATEGORY_API_URL;
 const CART_API_URL = import.meta.env.VITE_CART_API_URL;
@@ -33,8 +33,8 @@ const Products = () => {
       try {
         console.log('Fetching products and categories...');
         const [productsResponse, categoriesResponse] = await Promise.all([
-          axios.get(`${VITE_API_URL}/api/products/paginate?page=${currentPage}&limit=${itemsPerPage}`),
-          axios.get(`${VITE_API_URL}/api/categories`),
+          axios.get(`${API_URL}/api/products/paginate?page=${currentPage}&limit=${itemsPerPage}`),
+          axios.get(`${API_URL}/api/categories`),
         ]);
 
         const productsData = productsResponse.data.products || productsResponse.data || [];
