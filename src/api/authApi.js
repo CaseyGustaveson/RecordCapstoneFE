@@ -26,7 +26,7 @@ export const signupUser = async (userData) => {
 
 export const loginUser = async ({ email, password }) => {
     try {
-        const response = await fetch("https://record-store-capstone-14ecbce216cb.herokuapp.com/auth/login", {
+        const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, }),
