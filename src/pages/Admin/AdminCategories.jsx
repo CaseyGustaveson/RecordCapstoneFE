@@ -68,7 +68,7 @@ const AdminCategories = () => {
   };
   const deleteCategory = async (id) => {
     try {
-      await axios.delete(`${API_URL}/categories/${id}`, {
+      await axios.delete(`${API_URL}/api/categories/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCategories(categories.filter((category) => category.id !== id));
