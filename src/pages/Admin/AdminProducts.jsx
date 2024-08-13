@@ -91,7 +91,7 @@ const AdminProducts = () => {
     try {
       console.log("Adding product with data:", newProduct); // Log the product data
       const response = await axios.post(
-        PRODUCTS_API_URL,
+        API_URL/"/api/products",
         {
           ...newProduct,
           categoryId: newProduct.categoryId,
@@ -119,7 +119,7 @@ const AdminProducts = () => {
   const editProduct = async (id) => {
     try {
       const response = await axios.put(
-        `${PRODUCTS_API_URL}/${id}`,
+        `${API_URL}/api/products/${id}`,
         {
           ...newProduct,
           price: newProduct.price.toString(), // Ensure price is a string
@@ -156,7 +156,7 @@ const AdminProducts = () => {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`${PRODUCTS_API_URL}/${id}`, {
+      await axios.delete(`${API_URL}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(products.filter((product) => product.id !== id));

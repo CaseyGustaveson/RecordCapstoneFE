@@ -4,7 +4,8 @@ import { Typography, Box, CircularProgress, Grid, Snackbar, Alert } from '@mui/m
 import ProductCard from '../components/ProductCard'; // Adjust the import path as needed
 import axios from 'axios';
 
-const CART_API_URL = import.meta.env.VITE_CART_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const SearchResultsPage = () => {
   const [products, setProducts] = useState([]);
@@ -39,7 +40,7 @@ const SearchResultsPage = () => {
   const addToCart = async (productId, quantity) => {
     try {
       const response = await axios.post(
-        CART_API_URL,
+        API_URL/"api/cart",
         { productId, quantity },
         {
           headers: {
