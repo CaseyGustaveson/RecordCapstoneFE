@@ -80,7 +80,7 @@ export const deleteProduct = async (productId) => {
 // Fetch products by category
 export const getProductsByCategory = async (categoryId) => {
   try {
-    const response = await axios.get(API_URL/"products", {
+    const response = await axios.get(`${API_URL}/api/products`, {
       params: { categoryId }
     });
     return response.data;
