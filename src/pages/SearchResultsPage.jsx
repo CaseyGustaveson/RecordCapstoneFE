@@ -40,7 +40,7 @@ const SearchResultsPage = () => {
   const addToCart = async (productId, quantity) => {
     try {
       const response = await axios.post(
-        API_URL/"api/cart",
+        `${API_URL}/api/cart`,
         { productId, quantity },
         {
           headers: {

@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
-const CART_API_URL = `${API_URL}/api/cart`;
+
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -36,7 +36,7 @@ const CartPage = () => {
   const fetchCartItems = async (token) => {
     setLoading(true);
     try {
-      const response = await axios.get(CART_API_URL, {
+      const response = await axios.get(`${API_URL}/api/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const CartPage = () => {
     const token = localStorage.getItem('token');
     try {
       if (newQuantity <= 0) {
-        await axios.delete(`${CART_API_URL}/${itemId}`, {
+        await axios.delete(`${API_URL}/api/cart/${itemId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ const CartPage = () => {
         setCartItems(cartItems.filter((item) => item.id !== itemId));
       } else {
         await axios.put(
-          `${CART_API_URL}/${itemId}`,
+          `${API_URL}/api/cart/${itemId}`,
           { quantity: newQuantity },
           {
             headers: {
