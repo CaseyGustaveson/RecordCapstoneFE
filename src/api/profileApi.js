@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Ensure this URL is correct and matches your backend server
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Create an Axios instance for API calls
 const api = axios.create({
