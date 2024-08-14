@@ -14,7 +14,7 @@ const api = axios.create({
 // Fetch user profile
 export const getUserProfile = async (token) => {
     try {
-        const response = await api.get('/profile', {
+        const response = await api.get(`${API_URL}/api/profile`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.data;
@@ -27,7 +27,7 @@ export const getUserProfile = async (token) => {
 // Update user profile
 export const updateUserProfile = async (token, profile) => {
     try {
-        const response = await api.put('/profile', profile, {
+        const response = await api.put(`${API_URL}/api/profile`, profile, {
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.data;
