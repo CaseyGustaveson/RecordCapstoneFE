@@ -13,7 +13,7 @@ const Hero = () => {
         backgroundColor: '#eceff1',
         textAlign: 'center',
         padding: '20px',
-        mb: 4, // margin-bottom to separate from products
+        mb: 4,
       }}
     >
       <Typography variant="h2" gutterBottom>
