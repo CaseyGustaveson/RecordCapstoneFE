@@ -89,9 +89,9 @@ const AdminProducts = () => {
 
   const addProduct = async () => {
     try {
-      console.log("Adding product with data:", newProduct); // Log the product data
+      console.log("Adding product with data:", newProduct); 
       const response = await axios.post(
-        API_URL/"/api/products",
+        `${API_URL}/api/products/`,
         {
           ...newProduct,
           categoryId: newProduct.categoryId,
