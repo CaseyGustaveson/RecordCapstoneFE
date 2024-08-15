@@ -4,7 +4,6 @@ import { Container, Typography, Button, Grid } from '@mui/material';
 const HomePage = () => {
   const styles = {
     backgroundContainer: {
-      background: 'url(/path/to/your/background.jpg) no-repeat center center fixed',
       backgroundSize: 'cover',
       minHeight: '100vh',
       display: 'flex',
