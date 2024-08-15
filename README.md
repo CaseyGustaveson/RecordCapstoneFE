@@ -1,7 +1,8 @@
 https://record-capstone-fe.vercel.app/
 
-Admin user:
+ADMIN user:
+
 {
-    "email": "TestAdminUser12344@Test.com",
-    "password":"test123"
+    "email": "Admin10@Test.com",
+    "password":"test1234"
 }
