@@ -19,7 +19,7 @@ const CartPage = () => {
   const [loading, setLoading] = useState(true);
   const [openAlert, setOpenAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [totalCost, setTotalCost] = useState(0); // State to track total cost
+  const [totalCost, setTotalCost] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +42,8 @@ const CartPage = () => {
           'Content-Type': 'application/json',
         },
       });
-      setCartItems(response.data);
+      setCartItems(response.data.cartItems);
+      setTotalCost(response.data.totalCost); // Update total cost from response
     } catch (error) {
       setAlertMessage('Failed to fetch cart items. Please try again later.');
       setOpenAlert(true);
@@ -50,17 +51,6 @@ const CartPage = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const calculateTotalCost = () => {
-      const total = cartItems.reduce((sum, item) => {
-        return sum + item.product.price * item.quantity;
-      }, 0);
-      setTotalCost(total);
-    };
-
-    calculateTotalCost();
-  }, [cartItems]); // Update total cost whenever cartItems changes
 
   const updateQuantity = async (itemId, newQuantity) => {
     const token = localStorage.getItem('token');
@@ -90,6 +80,14 @@ const CartPage = () => {
           )
         );
       }
+      // Recalculate total cost after update
+      const updatedResponse = await axios.get(`${API_URL}/api/cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      setTotalCost(updatedResponse.data.totalCost);
     } catch (error) {
       setAlertMessage('Failed to update item quantity. Please try again later.');
       setOpenAlert(true);
@@ -113,6 +111,7 @@ const CartPage = () => {
       setAlertMessage(response.data.message);
       setOpenAlert(true);
       setCartItems([]);
+      setTotalCost(0); // Reset total cost
     } catch (error) {
       setAlertMessage('Failed to checkout. Please try again later.');
       setOpenAlert(true);
