@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, CardMedia, Button, Stack } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia, Button, Stack, Box } from '@mui/material';
 
 const ProductCard = ({ product, onAdd, categoryName }) => {
   const defaultImage = 'https://via.placeholder.com/200x140?text=No+Image';
@@ -13,17 +13,27 @@ const ProductCard = ({ product, onAdd, categoryName }) => {
 
   return (
     <Card sx={{ width: 300, borderRadius: 2, boxShadow: 3, margin: 1, overflow: 'hidden' }}>
-      <CardMedia
-        component="img"
-        alt={productName}
-        image={productImageUrl}
-        sx={{ 
-          height: 150, 
-          objectFit: 'cover', 
-          width: '100%', 
-          display: 'block'
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          paddingTop: '56.25%', // 16:9 Aspect Ratio
         }}
-      />
+      >
+        <CardMedia
+          component="img"
+          alt={productName}
+          image={productImageUrl}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        />
+      </Box>
       <CardContent sx={{ padding: 2 }}>
         <Typography variant="h6" component="div" sx={{ mb: 1, textAlign: 'center', fontSize: '1rem' }}>
           {productName}
