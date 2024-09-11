@@ -43,13 +43,20 @@ const CartPage = () => {
         },
       });
       setCartItems(response.data.cartItems);
-      setTotalCost(response.data.totalCost); // Update total cost from response
+      calculateTotalCost(response.data.cartItems);
     } catch (error) {
       setAlertMessage('Failed to fetch cart items. Please try again later.');
       setOpenAlert(true);
     } finally {
       setLoading(false);
     }
+  };
+
+  const calculateTotalCost = (items) => {
+    const total = items.reduce((sum, item) => {
+      return sum + item.product.price * item.quantity;
+    }, 0);
+    setTotalCost(total);
   };
 
   const updateQuantity = async (itemId, newQuantity) => {
@@ -74,20 +81,12 @@ const CartPage = () => {
             },
           }
         );
-        setCartItems(
-          cartItems.map((item) =>
-            item.id === itemId ? { ...item, quantity: newQuantity } : item
-          )
+        const updatedItems = cartItems.map((item) =>
+          item.id === itemId ? { ...item, quantity: newQuantity } : item
         );
+        setCartItems(updatedItems);
+        calculateTotalCost(updatedItems);
       }
-      // Recalculate total cost after update
-      const updatedResponse = await axios.get(`${API_URL}/api/cart`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      setTotalCost(updatedResponse.data.totalCost);
     } catch (error) {
       setAlertMessage('Failed to update item quantity. Please try again later.');
       setOpenAlert(true);
@@ -111,7 +110,7 @@ const CartPage = () => {
       setAlertMessage(response.data.message);
       setOpenAlert(true);
       setCartItems([]);
-      setTotalCost(0); // Reset total cost
+      setTotalCost(0);
     } catch (error) {
       setAlertMessage('Failed to checkout. Please try again later.');
       setOpenAlert(true);
