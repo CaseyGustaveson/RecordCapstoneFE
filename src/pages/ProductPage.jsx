@@ -14,7 +14,6 @@ import ProductCard from '../components/ProductCard';
 
 const API_URL= import.meta.env.VITE_API_URL;
 
-
 const Products = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -29,19 +28,14 @@ const Products = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        console.log('Fetching products and categories...');
         const [productsResponse, categoriesResponse] = await Promise.all([
           axios.get(`${API_URL}/api/products/paginate?page=${currentPage}&limit=${itemsPerPage}`),
           axios.get(`${API_URL}/api/categories`),
         ]);
 
-        const productsData = productsResponse.data.products || productsResponse.data || [];
-        const categoriesData = categoriesResponse.data.categories || categoriesResponse.data || [];
+        const productsData = productsResponse.data.products || [];
+        const categoriesData = categoriesResponse.data.categories || [];
         const totalPages = productsResponse.data.totalPages || 1;
-
-        console.log('Products:', productsData);
-        console.log('Categories:', categoriesData);
-
 
         setProducts(productsData);
         setCategories(categoriesData);
@@ -69,7 +63,6 @@ const Products = () => {
           }
         }
       );
-      console.log('Item added to cart:', response.data);
       setSuccess('Item added to cart successfully!');
     } catch (error) {
       console.error('Error adding to cart:', error.message);
@@ -135,19 +128,20 @@ const Products = () => {
               page={currentPage}
               onChange={handlePageChange}
               color="primary"
-              />
-              <Select variant = "standard"
-                value={itemsPerPage}
-                onChange={handleItemsPerPage}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Items per page' }}
-                style={{marginLeft: '10px'}}
-                >
+            />
+            <Select
+              variant="standard"
+              value={itemsPerPage}
+              onChange={handleItemsPerPage}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Items per page' }}
+              style={{ marginLeft: '10px' }}
+            >
               <MenuItem value={5}>5</MenuItem>
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={15}>15</MenuItem>
               <MenuItem value={20}>20</MenuItem>
-              </Select>
+            </Select>
           </Box>
         </>
       )}
