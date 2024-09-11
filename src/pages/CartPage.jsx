@@ -14,12 +14,12 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openAlert, setOpenAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [totalCost, setTotalCost] = useState(0); // State to track total cost
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,6 +50,17 @@ const CartPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const calculateTotalCost = () => {
+      const total = cartItems.reduce((sum, item) => {
+        return sum + item.product.price * item.quantity;
+      }, 0);
+      setTotalCost(total);
+    };
+
+    calculateTotalCost();
+  }, [cartItems]); // Update total cost whenever cartItems changes
 
   const updateQuantity = async (itemId, newQuantity) => {
     const token = localStorage.getItem('token');
@@ -210,6 +221,9 @@ const CartPage = () => {
               </Grid>
             ))}
           </Grid>
+          <Typography variant="h5" marginTop={3}>
+            Total: ${totalCost.toFixed(2)}
+          </Typography>
           <Button
             variant="contained"
             color="primary"
