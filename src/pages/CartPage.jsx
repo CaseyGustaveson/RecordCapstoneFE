@@ -19,7 +19,7 @@ const CartPage = () => {
   const [loading, setLoading] = useState(true);
   const [openAlert, setOpenAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [totalCost, setTotalCost] = useState(0);
+  const [totalCost, setTotalCost] = useState(0); // State to track total cost
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,8 +42,7 @@ const CartPage = () => {
           'Content-Type': 'application/json',
         },
       });
-      setCartItems(response.data.cartItems);
-      calculateTotalCost(response.data.cartItems);
+      setCartItems(response.data);
     } catch (error) {
       setAlertMessage('Failed to fetch cart items. Please try again later.');
       setOpenAlert(true);
@@ -52,12 +51,16 @@ const CartPage = () => {
     }
   };
 
-  const calculateTotalCost = (items) => {
-    const total = items.reduce((sum, item) => {
-      return sum + item.product.price * item.quantity;
-    }, 0);
-    setTotalCost(total);
-  };
+  useEffect(() => {
+    const calculateTotalCost = () => {
+      const total = cartItems.reduce((sum, item) => {
+        return sum + item.product.price * item.quantity;
+      }, 0);
+      setTotalCost(total);
+    };
+
+    calculateTotalCost();
+  }, [cartItems]); // Update total cost whenever cartItems changes
 
   const updateQuantity = async (itemId, newQuantity) => {
     const token = localStorage.getItem('token');
@@ -81,11 +84,11 @@ const CartPage = () => {
             },
           }
         );
-        const updatedItems = cartItems.map((item) =>
-          item.id === itemId ? { ...item, quantity: newQuantity } : item
+        setCartItems(
+          cartItems.map((item) =>
+            item.id === itemId ? { ...item, quantity: newQuantity } : item
+          )
         );
-        setCartItems(updatedItems);
-        calculateTotalCost(updatedItems);
       }
     } catch (error) {
       setAlertMessage('Failed to update item quantity. Please try again later.');
@@ -110,7 +113,6 @@ const CartPage = () => {
       setAlertMessage(response.data.message);
       setOpenAlert(true);
       setCartItems([]);
-      setTotalCost(0);
     } catch (error) {
       setAlertMessage('Failed to checkout. Please try again later.');
       setOpenAlert(true);
