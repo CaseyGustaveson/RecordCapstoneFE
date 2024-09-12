@@ -160,8 +160,8 @@ const CartPage = () => {
         <>
           <Grid container spacing={3} justifyContent="center">
             {cartItems.map((item) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-                <Paper elevation={3} sx={{ padding: 2, borderRadius: 2 }}>
+              <Grid item xs={12} sm={6} md={4} lg={3} key={item.id} display="flex" justifyContent="center">
+                <Paper elevation={3} sx={{ padding: 2, borderRadius: 2, width: '100%', maxWidth: 300 }}>
                   <Box
                     display="flex"
                     flexDirection="column"
