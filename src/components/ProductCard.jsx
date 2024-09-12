@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardContent, Typography, CardMedia, Button, Stack, Box } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia, Button, Stack, TextField } from '@mui/material';
 
-const ProductCard = ({ product, onAdd, categoryName }) => {
+const ProductCard = ({ product, onAdd, onSubmit,categoryName }) => {
   const defaultImage = 'https://via.placeholder.com/200x140?text=No+Image';
 
   const productName = product?.name || 'No Name';
@@ -12,48 +12,38 @@ const ProductCard = ({ product, onAdd, categoryName }) => {
   const productImageUrl = product?.imageUrl || defaultImage;
 
   return (
-    <Card sx={{ width: 300, borderRadius: 2, boxShadow: 3, margin: 1, overflow: 'hidden' }}>
-      <Box
-        sx={{
-          position: 'relative',
-          width: '100%',
-          paddingTop: '56.25%', // 16:9 Aspect Ratio
-        }}
-      >
-        <CardMedia
-          component="img"
-          alt={productName}
-          image={productImageUrl}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-        />
-      </Box>
-      <CardContent sx={{ padding: 2 }}>
-        <Typography variant="h6" component="div" sx={{ mb: 1, textAlign: 'center', fontSize: '1rem' }}>
+    <Card sx={{ width: 200, borderRadius: 2, boxShadow: 3, margin: 1 }}>
+      <CardMedia
+        component="img"
+        alt={productName}
+        width='50%'
+        height="150"
+        objectFit='contain'
+        borderRadius='8px'
+        marginBottom='8'
+        image={productImageUrl} 
+        sx={{ objectFit: 'cover' }} 
+      />
+      <CardContent sx={{ padding: 1 }}>
+        <Typography variant="h6" component="div" sx={{ mb: 0.5, textAlign: 'center', fontSize: '0.9rem' }}>
           {productName}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.9rem' }}>
+        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.8rem' }}>
           ${productPrice}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.9rem' }}>
+        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.8rem' }}>
           Release Year: {productReleaseYear}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.9rem' }}>
+        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.8rem' }}>
           Category: {productCategory}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.9rem' }}>
+        <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: '0.8rem' }}>
           {productQuantity} in stock
         </Typography>
       </CardContent>
       <CardContent sx={{ paddingTop: 0, paddingBottom: 1 }}>
         <Stack direction="row" spacing={0.5} justifyContent="center">
-          <Button variant="contained" color="primary" size="small" onClick={() => onAdd(product.id)}>
+          <Button variant="contained" color="primary" size="small" onClick={() => onAdd(product)}>
             Add To Cart
           </Button>
         </Stack>
