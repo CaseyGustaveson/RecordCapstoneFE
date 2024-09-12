@@ -53,7 +53,7 @@ const ProductCard = ({ product, onAdd, categoryName }) => {
       </CardContent>
       <CardContent sx={{ paddingTop: 0, paddingBottom: 1 }}>
         <Stack direction="row" spacing={0.5} justifyContent="center">
-          <Button variant="contained" color="primary" size="small" onClick={() => onAdd(product)}>
+          <Button variant="contained" color="primary" size="small" onClick={() => onAdd(product.id)}>
             Add To Cart
           </Button>
         </Stack>
