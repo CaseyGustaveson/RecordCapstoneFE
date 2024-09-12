@@ -158,7 +158,7 @@ const CartPage = () => {
         </Typography>
       ) : (
         <>
-          <Grid container spacing={3} marginTop={2}>
+          <Grid container spacing={3} justifyContent="center">
             {cartItems.map((item) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
                 <Paper elevation={3} sx={{ padding: 2, borderRadius: 2 }}>
